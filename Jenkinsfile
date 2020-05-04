@@ -1,17 +1,18 @@
+
 pipeline {
    agent any
 
    stages {
       stage('checkout_Code_integration') {
          steps {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GIT_chait', url: 'https://github.com/chaitanyagaajula/CICD.git']]])
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '65adad77-7981-400f-922b-74cc6ba0c88e', url: 'https://github.com/chaitanyagaajula/CICD.git']]])
 
          }
       }
       stage('Unit_Testing') {
          steps {
                         sh "/usr/local/bin/pip install -r requirements.txt"
-            sh "/usr/bin/python3 -m pytest -v tests/test_generator.py"
+            sh "/usr/bin/python -m pytest -v tests/test_generator.py"
          }
       }
       stage('Docker_image_Build') {
@@ -23,7 +24,7 @@ pipeline {
       }
       stage('publish') {
          steps {
-			withDockerRegistry(credentialsId: 'GIT_chait', url: 'https://index.docker.io/v1/') {
+			withDockerRegistry(credentialsId: '65adad77-7981-400f-922b-74cc6ba0c88e', url: 'https://index.docker.io/v1/') {
                      sh "/usr/bin/docker push chaitanyagaajula/cicd-example:latest"
          }
          }
@@ -36,4 +37,3 @@ pipeline {
          }
       }
    }
-
