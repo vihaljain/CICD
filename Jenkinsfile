@@ -5,7 +5,7 @@ pipeline {
    stages {
       stage('checkout_Code_integration') {
          steps {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '65adad77-7981-400f-922b-74cc6ba0c88e', url: 'https://github.com/chaitanyagaajula/CICD.git']]])
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'd3f28fd7-b805-4ab1-8f2c-6ad1bbe07479', url: 'https://github.com/vihaljain/CICD.git']]])
 
          }
       }
@@ -24,7 +24,7 @@ pipeline {
       }
       stage('publish') {
          steps {
-			withDockerRegistry(credentialsId: '65adad77-7981-400f-922b-74cc6ba0c88e', url: 'https://index.docker.io/v1/') {
+			withDockerRegistry(credentialsId: 'd3f28fd7-b805-4ab1-8f2c-6ad1bbe07479', url: 'https://index.docker.io/v1/') {
                      sh "/usr/bin/docker push vihaljain/cicd-example:latest"
          }
          }
